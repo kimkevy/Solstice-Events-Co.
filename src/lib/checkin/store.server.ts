@@ -27,7 +27,7 @@ const SEED: Array<Omit<Attendee, "state" | "printJobId" | "lastEventSeq" | "upda
     { id: "att_d", name: "Daniel Mwangi", badgeCode: "SOL-1004", ticketType: "Expo Only" },
   ];
 
-const globalRef = globalThis as unknown as { __solsticeStore?: Store };
+const globalRef = globalThis as unknown as { __solsticeStore?: Store | undefined };
 
 export function getStore(): Store {
   if (!globalRef.__solsticeStore) {
@@ -95,6 +95,6 @@ export function applyVendorCallback(event: PrintCompleted): CallbackResult | { a
 }
 
 export function resetStore(): void {
-  globalRef.__solsticeStore = undefined;
+  delete globalRef.__solsticeStore;
   getStore();
 }
