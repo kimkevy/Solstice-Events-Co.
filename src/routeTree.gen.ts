@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ArchitectureRouteImport } from './routes/architecture'
 import { Route as ApiPublicPrintWebhookRouteImport } from './routes/api/public/print-webhook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArchitectureRoute = ArchitectureRouteImport.update({
+  id: '/architecture',
+  path: '/architecture',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicPrintWebhookRoute = ApiPublicPrintWebhookRouteImport.update({
@@ -25,27 +31,31 @@ const ApiPublicPrintWebhookRoute = ApiPublicPrintWebhookRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/architecture': typeof ArchitectureRoute
   '/api/public/print-webhook': typeof ApiPublicPrintWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/architecture': typeof ArchitectureRoute
   '/api/public/print-webhook': typeof ApiPublicPrintWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/architecture': typeof ArchitectureRoute
   '/api/public/print-webhook': typeof ApiPublicPrintWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/public/print-webhook'
+  fullPaths: '/' | '/architecture' | '/api/public/print-webhook'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/public/print-webhook'
-  id: '__root__' | '/' | '/api/public/print-webhook'
+  to: '/' | '/architecture' | '/api/public/print-webhook'
+  id: '__root__' | '/' | '/architecture' | '/api/public/print-webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ArchitectureRoute: typeof ArchitectureRoute
   ApiPublicPrintWebhookRoute: typeof ApiPublicPrintWebhookRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/architecture': {
+      id: '/architecture'
+      path: '/architecture'
+      fullPath: '/architecture'
+      preLoaderRoute: typeof ArchitectureRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/print-webhook': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ArchitectureRoute: ArchitectureRoute,
   ApiPublicPrintWebhookRoute: ApiPublicPrintWebhookRoute,
 }
 export const routeTree = rootRouteImport
