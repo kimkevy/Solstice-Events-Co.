@@ -15,8 +15,8 @@ export function snapshot(): Attendee[] {
 export async function handleScan(input: {
   badgeCode: string;
   origin: string;
-  delayMs?: number;
-  redeliver?: boolean;
+  delayMs?: number | undefined;
+  redeliver?: boolean | undefined;
 }): Promise<ScanOutcome> {
   const attendee = findByBadge(input.badgeCode);
   if (!attendee) {

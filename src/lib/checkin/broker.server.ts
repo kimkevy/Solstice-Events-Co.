@@ -11,9 +11,9 @@ import { getStore } from "./store.server";
 export type PublishOptions = {
   origin: string;
   /** Simulated vendor processing delay in ms. */
-  delayMs?: number;
+  delayMs?: number | undefined;
   /** Simulate a duplicate/out-of-order redelivery of the same callback. */
-  redeliver?: boolean;
+  redeliver?: boolean | undefined;
 };
 
 export function webhookSecret(): string {
